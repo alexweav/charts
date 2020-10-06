@@ -107,10 +107,19 @@ spec:
         - name: google-cloud-key
           mountPath: /var/secrets/google
   {{- end }}
+  {{- if .Values.existingVolumeStorage.enabled }}
+        - name: storage
+          mountPath: /data/druid
+  {{- end }}
       volumes:
   {{- if not .Values.middleManager.persistence.enabled }} 
       - name: data
         emptyDir: {}
+  {{- end }}
+  {{- if .Values.existingVolumeStorage.enabled }}
+      - name: storage
+        persistentVolumeClaim:
+          claimName: {{ .Values.existingVolumeStorage.claimName }}
   {{- end }}
   {{- if .Values.gCloudStorage.enabled }}
       - name: google-cloud-key

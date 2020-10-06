@@ -37,6 +37,10 @@ gCloudStorage:
   enabled: false
   secretName: google-cloud-key
 
+existingVolumeStorage:
+  enabled: false
+  claimName: data
+
 broker:
   ## If false, broker will not be installed
   ##
